@@ -1,6 +1,3 @@
-import { ToolbarState } from 'app/reducers/toolbar';
-import { MouseEvent } from 'react';
-import { useSelector } from 'react-redux';
 import Pixel from './Pixel';
 
 interface Props {
@@ -9,13 +6,6 @@ interface Props {
 }
 
 function Board({ pixels, size }: Props) {
-  const { activeColor } = useSelector((state: ToolbarState) => state.toolbar);
-
-  function onPaintPixel(event: MouseEvent) {
-    const { style } = event.target as HTMLDivElement;
-    style.backgroundColor = activeColor;
-  }
-
   return (
     <div
       className='w-fit h-fit grid grid-cols-[repeat(20,_1fr)] gap-[1px]'
@@ -24,7 +14,7 @@ function Board({ pixels, size }: Props) {
     >
       {
         Array.from({ length: size }).map((_, i) => (
-          <Pixel key={ i } color={ pixels[i] } onPaint={ onPaintPixel } />
+          <Pixel key={ i } color={ pixels[i] } />
         ))
       }
     </div>

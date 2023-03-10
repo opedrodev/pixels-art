@@ -3,11 +3,13 @@ import { createSlice } from '@reduxjs/toolkit';
 export interface ToolbarState {
   toolbar: {
     activeColor: string;
+    activeTool: string;
   };
 }
 
 const initialState = {
-  activeColor: '#000000'
+  activeColor: '#000000',
+  activeTool: '',
 };
 
 export const toolbarSlice = createSlice({
@@ -16,9 +18,13 @@ export const toolbarSlice = createSlice({
   reducers: {
     setActiveColor: (state, action) => {
       state.activeColor = action.payload;
+    },
+
+    setActiveTool: (state, action) => {
+      state.activeTool = action.payload;
     }
   },
 });
 
-export const { setActiveColor } = toolbarSlice.actions;
+export const { setActiveColor, setActiveTool } = toolbarSlice.actions;
 export default toolbarSlice.reducer;

@@ -1,17 +1,32 @@
-import { ToolbarState } from 'app/reducers/toolbar';
-import { memo, MouseEvent } from 'react';
-import { useSelector } from 'react-redux';
+import { setActiveColor, ToolbarState } from 'app/reducers/toolbar';
+import { MouseEvent } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 interface Pixel {
   color: string;
 }
 
 function Pixel({ color }: Pixel) {
-  const { activeColor } = useSelector((state: ToolbarState) => state.toolbar);
+  const { activeColor, activeTool } = useSelector((state: ToolbarState) => state.toolbar);
+  const dispatch = useDispatch();
 
   function onPaintPixel(event: MouseEvent) {
     const { style } = event.target as HTMLDivElement;
-    style.backgroundColor = activeColor;
+
+    switch (activeTool) {
+    case 'pencil':
+      style.backgroundColor = activeColor;
+      break;
+    case 'eraser':
+      style.backgroundColor = '#ffffff';
+      break;
+    case 'picker':
+      dispatch(setActiveColor(style.backgroundColor));
+      break;
+    default:
+      event.preventDefault();
+      break;
+    }
   }
 
   function onHoldPaint(event: MouseEvent) {
@@ -22,7 +37,7 @@ function Pixel({ color }: Pixel) {
 
   return (
     <div
-      className='h-6 w-6 border border-black select-none'
+      className='h-6 w-6 select-none border-2 border-transparent hover:border-gray-600'
       style={ { backgroundColor: color ? color : 'white' } }
       onClick={ onPaintPixel }
       onMouseOver={ onHoldPaint }
@@ -30,4 +45,4 @@ function Pixel({ color }: Pixel) {
   );
 }
 
-export default memo(Pixel);
+export default Pixel;

@@ -15,7 +15,6 @@ export default function Login() {
     remember: false,
   });
 
-
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     setCredentials({
       ...credentials,
@@ -63,7 +62,7 @@ export default function Login() {
         <div className='flex justify-between items-center'>
           <label
             htmlFor='remember'
-            className='flex  gap-2 cursor-pointer leading-none'
+            className='flex gap-2 cursor-pointer leading-none'
           >
             <input
               type='checkbox'

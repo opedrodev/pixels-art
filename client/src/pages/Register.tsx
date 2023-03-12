@@ -1,7 +1,7 @@
 import Button from 'components/UI/Button';
 import Input from 'components/UI/Input';
 import Link from 'components/UI/Link';
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { registerValidationSchema } from 'validations/registerValidationSchema';
@@ -16,7 +16,7 @@ export default function Register() {
     confirmPassword: '',
   });
 
-  function handleChange({ target }: React.ChangeEvent<HTMLInputElement>) {
+  function handleChange({ target }: ChangeEvent<HTMLInputElement>) {
     setCredentials({
       ...credentials,
       [target.name]: target.value,

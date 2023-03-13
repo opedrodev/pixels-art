@@ -1,7 +1,7 @@
-import { HTMLAttributes } from 'react';
+import { HTMLAttributes, ReactNode } from 'react';
 
 interface Button extends HTMLAttributes<HTMLButtonElement> {
-  text: string;
+  text: string | ReactNode;
   className?: string;
 }
 

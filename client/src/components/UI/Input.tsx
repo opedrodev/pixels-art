@@ -4,9 +4,10 @@ import { BiHide, BiShow } from 'react-icons/bi';
 interface Input extends InputHTMLAttributes<HTMLInputElement> {
   type: string;
   className?: string;
+  label?: string;
 }
 
-export default function Input({ type, className, ...props }: Input) {
+export default function Input({ type, className, label, ...props }: Input) {
   const [showPassword, setShowPassword] = useState(false);
 
   if (type === 'password') {
@@ -34,10 +35,14 @@ export default function Input({ type, className, ...props }: Input) {
   }
 
   return (
-    <input
-      type={ type }
-      { ...props }
-      className={ `py-1 px-2 border-b border-gray-200 focus:border-black outline-none ${className}` }
-    />
+    <label htmlFor={ label }>
+      <p className='text-sm'>{ label }</p>
+      <input
+        type={ type }
+        { ...props }
+        id={ label }
+        className={ `py-1 px-2 w-full border-b border-gray-200 focus:border-black outline-none ${className}` }
+      />
+    </label>
   );
 }

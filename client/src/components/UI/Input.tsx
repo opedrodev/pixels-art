@@ -12,31 +12,33 @@ export default function Input({ type, className, label, ...props }: Input) {
 
   if (type === 'password') {
     return (
-      <div className='relative'>
+      <label htmlFor={ label } className='relative'>
+        <p className='text-sm select-none'>{ label }</p>
         <input
           type={ showPassword ? 'text' : 'password' }
+          id={ label }
           { ...props }
           className={ `w-full py-1 px-2 pr-8 border-b border-gray-200 focus:border-black outline-none ${className}` }
         />
 
         { showPassword ? (
           <BiHide
-            className='absolute top-1/2 right-2 transform -translate-y-1/2 text-gray-400 cursor-pointer text-xl select-none'
+            className={ `absolute top-1/2 right-2 text-gray-400 cursor-pointer text-xl select-none ${!label && 'transform -translate-y-1/2'}` }
             onClick={ () => setShowPassword(false) }
           />
         ) : (
           <BiShow
-            className='absolute top-1/2 right-2 transform -translate-y-1/2 text-gray-400 cursor-pointer text-xl select-none'
+            className={ `absolute top-1/2 right-2 text-gray-400 cursor-pointer text-xl select-none ${!label && 'transform -translate-y-1/2'}` }
             onClick={ () => setShowPassword(true) }
           />
         ) }
-      </div>
+      </label>
     );
   }
 
   return (
     <label htmlFor={ label }>
-      <p className='text-sm'>{ label }</p>
+      <p className='text-sm select-none'>{ label }</p>
       <input
         type={ type }
         { ...props }

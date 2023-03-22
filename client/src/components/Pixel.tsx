@@ -1,12 +1,10 @@
 import { setActiveColor, ToolbarState } from 'app/reducers/toolbar';
+import { IBoardState, IPixel } from 'interfaces';
 import { MouseEvent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-interface Pixel {
-  color: string;
-}
-
-function Pixel({ color }: Pixel) {
+export default function Pixel({ color }: IPixel) {
+  const { options } = useSelector((state: IBoardState) => state.board.board);
   const { activeColor, activeTool } = useSelector((state: ToolbarState) => state.toolbar);
   const dispatch = useDispatch();
 
@@ -37,12 +35,13 @@ function Pixel({ color }: Pixel) {
 
   return (
     <div
-      className='h-6 w-6 select-none border-2 border-transparent hover:border-gray-600'
-      style={ { backgroundColor: color ? color : 'white' } }
+      className='h-8 w-8 select-none border-2 border-transparent hover:border-gray-600'
+      style={ {
+        backgroundColor: color,
+        border: options.border ? `${options.border}px solid rgb(229, 231, 235)` : ''
+      } }
       onClick={ onPaintPixel }
       onMouseOver={ onHoldPaint }
     />
   );
 }
-
-export default Pixel;

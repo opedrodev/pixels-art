@@ -3,6 +3,7 @@ import Login from 'pages/Login';
 import NewBoard from 'pages/NewBoard';
 import NotFound from 'pages/NotFound';
 import Register from 'pages/Register';
+import Workspace from 'pages/Workspace';
 import { Route, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -17,6 +18,7 @@ function App() {
         <Route path='/register' element={ <Register /> } />
         <Route path='/home' element={ <Home /> } />
         <Route path='/board/new' element={ <NewBoard /> } />
+        <Route path='/board/:id' element={ <Workspace /> } />
         <Route path='*' element={ <NotFound /> } />
       </Routes>
     </>

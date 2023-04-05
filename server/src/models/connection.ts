@@ -3,12 +3,9 @@ import mongoose, { ConnectOptions } from 'mongoose';
 
 dotenv.config();
 
-const USER = process.env.MONGO_USER;
-const PASSWORD = process.env.MONGO_PASSWORD;
-
 export default async function connectDatabase() {
   try {
-    await mongoose.connect(`mongodb+srv://${USER}:${PASSWORD}@cluster.kwnvofy.mongodb.net/pixels-art?retryWrites=true&w=majority`, {
+    await mongoose.connect(process.env.MONGO_URL || '', {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     } as ConnectOptions);

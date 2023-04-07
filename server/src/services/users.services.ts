@@ -34,6 +34,8 @@ async function verifyToken(token: string) {
 
   const userExists = await UserModel.findOne({ email: decoded.email });
   if (!userExists) throw new Error('User does not exists');
+
+  return decoded;
 }
 
 const UserService = {

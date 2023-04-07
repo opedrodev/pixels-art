@@ -6,6 +6,8 @@ import UserModel from '../models/users.models';
 
 dotenv.config();
 
+const JWT_SECRET = process.env.JWT_SECRET || 'z.25-ab';
+
 async function register(user: IUser) {
   const emailExists = await UserModel.findOne({ email: user.email });
   if (emailExists) throw new Error('Email already exists');
@@ -23,13 +25,21 @@ async function login({ email, password, rememberMe }: ILogin) {
   const validPassword = compareSync(password, hashedPassword);
   if (!validPassword) throw new Error('Invalid email or password');
 
-  const token = jwt.sign(userInfo, process.env.JWT_SECRET || 'z.25-ab', { expiresIn: rememberMe ? '7d' : '4h'});
+  const token = jwt.sign(userInfo, JWT_SECRET, { expiresIn: rememberMe ? '7d' : '4h'});
   return token;
+}
+
+async function verifyToken(token: string) {
+  const decoded = jwt.verify(token, JWT_SECRET) as IUser;
+
+  const userExists = await UserModel.findOne({ email: decoded.email });
+  if (!userExists) throw new Error('User does not exists');
 }
 
 const UserService = {
   register,
   login,
+  verifyToken,
 }
 
 export default UserService;

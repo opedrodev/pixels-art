@@ -23,9 +23,22 @@ async function login(req: Request, res: Response) {
   }
 }
 
+async function verifyToken(req: Request, res: Response) {
+  try {
+    const { authorization } = req.headers;
+    await UserService.verifyToken(authorization || '');
+    res.status(200).json({ message: 'Token verified' });
+  } catch (error) {
+    if (error instanceof Error) {
+      res.status(401).json({ message: error.message });
+    }
+  }
+}
+
 const UserController = {
   register,
   login,
+  verifyToken,
 }
 
 export default UserController;

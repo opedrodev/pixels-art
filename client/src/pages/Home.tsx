@@ -1,7 +1,10 @@
 import Button from 'components/UI/Button';
+import useWithAuth from 'hooks/useWithAuth';
 import { useNavigate } from 'react-router-dom';
 
 export default function Home() {
+  useWithAuth();
+
   const navigate = useNavigate();
 
   // TODO: Load boards from API

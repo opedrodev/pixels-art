@@ -3,12 +3,14 @@ import Button from 'components/UI/Button';
 import Input from 'components/UI/Input';
 import Link from 'components/UI/Link';
 import errorHandler from 'helpers/errorHandler';
+import useWithAuth from 'hooks/useWithAuth';
 import { ChangeEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import loginValidationSchema from 'validations/loginValidationSchema';
 
 export default function Login() {
+  useWithAuth();
   const navigate = useNavigate();
 
   const [credentials, setCredentials] = useState({
@@ -27,8 +29,8 @@ export default function Login() {
   async function onLogin() {
     try {
       await loginValidationSchema.validate(credentials);
-      await login(credentials);
-
+      const { data: { token } } = await login(credentials);
+      localStorage.setItem('token', token);
       navigate('/home');
       toast.success('Login successful!');
     } catch (error) {

@@ -27,3 +27,17 @@ export interface ILogin {
   password: string;
   rememberMe: boolean;
 }
+
+export interface IUser {
+  email: string;
+  username: string;
+  _id: string;
+  boards?: IBoard[];
+}
+
+export interface IUserState {
+  user: {
+    isAuthed: boolean;
+    user: IUser;
+  }
+}

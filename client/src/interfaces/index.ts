@@ -21,3 +21,9 @@ export interface IBoardState {
 export interface IPixel {
   color: string;
 }
+
+export interface ILogin {
+  email: string;
+  password: string;
+  rememberMe: boolean;
+}

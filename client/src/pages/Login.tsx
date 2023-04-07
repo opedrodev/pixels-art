@@ -1,6 +1,8 @@
+import { login } from 'api/users';
 import Button from 'components/UI/Button';
 import Input from 'components/UI/Input';
 import Link from 'components/UI/Link';
+import errorHandler from 'helpers/errorHandler';
 import { ChangeEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -12,7 +14,7 @@ export default function Login() {
   const [credentials, setCredentials] = useState({
     email: '',
     password: '',
-    remember: false,
+    rememberMe: false,
   });
 
   function handleChange({ target }: ChangeEvent<HTMLInputElement>) {
@@ -25,16 +27,12 @@ export default function Login() {
   async function onLogin() {
     try {
       await loginValidationSchema.validate(credentials);
-
-      // TODO: Login user
+      await login(credentials);
 
       navigate('/home');
       toast.success('Login successful!');
     } catch (error) {
-      if (error instanceof Error) {
-        toast.error(error.message);
-        throw new Error(error.message);
-      }
+      errorHandler(error);
     }
   }
 
@@ -68,8 +66,8 @@ export default function Login() {
               type='checkbox'
               name='remember'
               id='remember'
-              checked={ credentials.remember }
-              onChange={ () => setCredentials({...credentials, remember: !credentials.remember }) }
+              checked={ credentials.rememberMe }
+              onChange={ () => setCredentials({...credentials, rememberMe: !credentials.rememberMe }) }
             />
             Remember me
           </label>

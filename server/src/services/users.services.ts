@@ -14,16 +14,16 @@ async function register(user: IUser) {
   await UserModel.create({ ...user, password: hashedPassword });
 }
 
-async function login(user: ILogin) {
-  const emailExists = await UserModel.findOne({ email: user.email });
+async function login({ email, password, rememberMe }: ILogin) {
+  const emailExists = await UserModel.findOne({ email: email });
   if (!emailExists) throw new Error('Email does not exists');
 
   const { password: hashedPassword, ...userInfo } = emailExists.toObject();
 
-  const validPassword = compareSync(user.password, hashedPassword);
+  const validPassword = compareSync(password, hashedPassword);
   if (!validPassword) throw new Error('Invalid email or password');
 
-  const token = jwt.sign(userInfo, process.env.JWT_SECRET || 'z.25-ab', { expiresIn: '4h'})
+  const token = jwt.sign(userInfo, process.env.JWT_SECRET || 'z.25-ab', { expiresIn: rememberMe ? '7d' : '4h'});
   return token;
 }
 

@@ -1,14 +1,21 @@
+import { savePixels } from 'app/reducers/board';
 import { RiSaveLine } from 'react-icons/ri';
 import { TbColorPicker, TbEraser, TbHome, TbPencil } from 'react-icons/tb';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Button from './Button';
 import ColorPicker from './ColorPicker';
 
 function Toolbar() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   function onSaveBoard() {
-    console.log('Save');
+    const board = document.querySelector('#board'),
+          boardChildren = Array.from(board?.children || []) as HTMLDivElement[];
+
+    const pixels = boardChildren.map((pixel) => pixel.style.backgroundColor);
+    dispatch(savePixels(pixels));
   }
 
   return (

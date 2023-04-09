@@ -13,9 +13,7 @@ export interface IBoardOptions {
 }
 
 export interface IBoardState {
-  board: {
-    board: IBoard;
-  }
+  board: IBoard;
 }
 
 export interface IPixel {

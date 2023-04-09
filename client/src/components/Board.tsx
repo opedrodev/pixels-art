@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import Pixel from './Pixel';
 
 export default function Board() {
-  const { height, width, pixels, options } = useSelector((state: IBoardState) => state.board.board);
+  const { height, width, pixels, options } = useSelector((state: IBoardState) => state.board);
 
   return (
     <div

@@ -4,7 +4,7 @@ import { MouseEvent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 export default function Pixel({ color }: IPixel) {
-  const { options } = useSelector((state: IBoardState) => state.board.board);
+  const { options } = useSelector((state: IBoardState) => state.board);
   const { activeColor, activeTool } = useSelector((state: ToolbarState) => state.toolbar);
   const dispatch = useDispatch();
 

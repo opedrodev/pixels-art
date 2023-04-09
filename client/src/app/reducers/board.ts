@@ -1,18 +1,36 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { IBoard } from 'interfaces';
 
 const initialState = {
-  board: {}
-};
+  id: '',
+  name: '',
+  height: 0,
+  width: 0,
+  pixels: [],
+  options: {
+    spacing: 0,
+    border: 0,
+  }
+} as IBoard;
 
 const boardSlice = createSlice({
   name: 'board',
   initialState,
   reducers: {
-    setBoard(state, action) {
-      state.board = action.payload;
+    setBoard(state, { payload: { id, name, height, width, pixels, options } }) {
+      state.id = id;
+      state.name = name;
+      state.height = height;
+      state.width = width;
+      state.pixels = pixels;
+      state.options = options;
+    },
+
+    savePixels(state, action) {
+      state.pixels = action.payload;
     }
   }
 });
 
-export const { setBoard } = boardSlice.actions;
+export const { setBoard, savePixels } = boardSlice.actions;
 export default boardSlice.reducer;

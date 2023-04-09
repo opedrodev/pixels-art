@@ -20,12 +20,20 @@ export default function Home() {
     <main className='text-gray-700 grid place-content-center justify-items-center p-16'>
       <h1 className='text-5xl uppercase mb-16'>Pixels Art</h1>
 
-      <section className='flex flex-col'>
-        <Button
-          text='New Board'
-          className='w-32 mb-8'
-          onClick={ () => navigate('/board/new') }
-        />
+      <section className='w-[800px] flex flex-col'>
+        <div className='flex justify-between'>
+          <Button
+            text='New Board'
+            className='w-32 mb-8'
+            onClick={ () => navigate('/board/new') }
+          />
+
+          <Button
+            text='Profile'
+            className='w-32 mb-8'
+            onClick={ () => navigate('/profile') }
+          />
+        </div>
 
         { boards.length === 0 && (
           <p className='text-center text-gray-500'>No boards found!</p>
@@ -34,7 +42,7 @@ export default function Home() {
         { boards.map((board) => (
           <Button
             key={ board.id }
-            className='w-[800px] border-t-transparent border-x-0'
+            className='w-full border-t-transparent border-x-0'
             onClick={ () => navigate(`/board/${board.id}`) }
             text={ (
               <div className='flex items-center justify-between gap-4 p-4'>

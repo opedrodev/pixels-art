@@ -5,8 +5,6 @@ import Pixel from './Pixel';
 export default function Board() {
   const { height, width, pixels, options } = useSelector((state: IBoardState) => state.board.board);
 
-  // TODO: Check if board exists in state, if yes, render it, if not, get the board from the server based on the id in the url
-
   return (
     <div
       className='w-fit h-fit grid justify-self-center self-center border border-gray-200'

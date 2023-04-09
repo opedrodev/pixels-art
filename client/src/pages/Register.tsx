@@ -1,6 +1,8 @@
+import { register } from 'api/users';
 import Button from 'components/UI/Button';
 import Input from 'components/UI/Input';
 import Link from 'components/UI/Link';
+import errorHandler from 'helpers/errorHandler';
 import { ChangeEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -25,17 +27,13 @@ export default function Register() {
 
   async function onRegister() {
     try {
-      await registerValidationSchema.validate(credentials);
-
-      // TODO: Register user
+      const { username, email, password } = await registerValidationSchema.validate(credentials);
+      await register({ username, email, password });
 
       navigate('/');
       toast.success('Register success!');
     } catch (error) {
-      if (error instanceof Error) {
-        toast.error(error.message);
-        throw new Error(error.message);
-      }
+      errorHandler(error);
     }
   }
 

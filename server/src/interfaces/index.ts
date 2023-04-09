@@ -9,3 +9,17 @@ export interface ILogin {
   password: string;
   rememberMe: boolean;
 }
+
+export interface IBoardOptions {
+  border: number;
+  spacing: number;
+}
+
+export interface IBoard {
+  id: string;
+  name: string;
+  height: number;
+  width: number;
+  options: IBoardOptions;
+  pixels: string[];
+}

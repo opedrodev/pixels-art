@@ -25,9 +25,22 @@ async function getBoards(req: Request, res: Response) {
   }
 }
 
+async function getBoardById(req: Request, res: Response) {
+  try {
+    const { userId, boardId } = req.params;
+    const board = await BoardsService.getBoardById(userId, boardId);
+    res.status(200).json(board);
+  } catch (error) {
+    if (error instanceof Error) {
+      res.status(400).json({ message: error.message });
+    }
+  }
+}
+
 const BoardsController = {
   saveBoard,
   getBoards,
+  getBoardById
 };
 
 export default BoardsController;

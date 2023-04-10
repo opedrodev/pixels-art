@@ -23,9 +23,22 @@ async function getBoards(userId: string) {
   return user.boards;
 }
 
+async function getBoardById(userId: string, boardId: string) {
+  if (!isValidObjectId(userId)) throw new Error('Invalid user id');
+  
+  const user = await UserModel.findById(userId);
+  if (!user) throw new Error('User not found');
+
+  const board = user.boards.find((b) => b.id === boardId);
+  if (!board) throw new Error('Board not found');
+
+  return board;
+}
+
 const BoardsService = {
   saveBoard,
   getBoards,
+  getBoardById,
 };
 
 export default BoardsService;

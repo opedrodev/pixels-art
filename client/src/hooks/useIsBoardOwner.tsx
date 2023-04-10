@@ -7,11 +7,15 @@ export default function useIsBoardOwner() {
   const { userId } = useParams();
 
   async function verifyBoardOwner() {
-    const token = localStorage.getItem('token');
-    const { data: { user: { _id } } } = await verifyToken(token || '');
+    try {
+      const token = localStorage.getItem('token');
+      const { data: { user: { _id } } } = await verifyToken(token || '');
 
-    if (userId === _id) setIsBoardOwner(true);
-    else setIsBoardOwner(false);
+      if (userId === _id) setIsBoardOwner(true);
+      else setIsBoardOwner(false);
+    } catch (error) {
+      return;
+    }
   }
 
   useEffect(() => {

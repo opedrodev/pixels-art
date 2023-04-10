@@ -1,14 +1,21 @@
+import { saveBoard } from 'api/boards';
 import { savePixels } from 'app/reducers/board';
+import { IBoardState } from 'interfaces';
+import { useEffect } from 'react';
 import { RiSaveLine } from 'react-icons/ri';
 import { TbColorPicker, TbEraser, TbHome, TbPencil } from 'react-icons/tb';
-import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import Button from './Button';
 import ColorPicker from './ColorPicker';
 
 function Toolbar() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { userId } = useParams();
+
+  const boardState = useSelector((state: IBoardState) => state.board);
 
   function onSaveBoard() {
     const board = document.querySelector('#board'),
@@ -16,7 +23,14 @@ function Toolbar() {
 
     const pixels = boardChildren.map((pixel) => pixel.style.backgroundColor);
     dispatch(savePixels(pixels));
+    toast.success('Board saved!');
   }
+
+  useEffect(() => {
+    (async () => {
+      await saveBoard(userId || '', boardState);
+    })();
+  }, [boardState]);
 
   return (
     <section className='grid grid-rows-[auto_1fr_auto] shadow-sm h-[100vh] border-r border-r-gray-200'>

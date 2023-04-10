@@ -1,9 +1,11 @@
+import useFetchBoard from 'hooks/useFetchBoard';
 import { IBoardState } from 'interfaces';
 import { useSelector } from 'react-redux';
 import Pixel from './Pixel';
 
 export default function Board() {
   const { height, width, pixels, options } = useSelector((state: IBoardState) => state.board);
+  useFetchBoard();
 
   return (
     <div

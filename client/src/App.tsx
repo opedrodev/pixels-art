@@ -18,7 +18,7 @@ function App() {
         <Route path='/register' element={ <Register /> } />
         <Route path='/home' element={ <Home /> } />
         <Route path='/board/new' element={ <NewBoard /> } />
-        <Route path='/board/:id' element={ <Workspace /> } />
+        <Route path='/board/:userId/:boardId' element={ <Workspace /> } />
         <Route path='*' element={ <NotFound /> } />
       </Routes>
     </>

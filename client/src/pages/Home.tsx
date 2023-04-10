@@ -1,20 +1,12 @@
+import BoardList from 'components/BoardList';
 import Button from 'components/UI/Button';
 import useWithAuth from 'hooks/useWithAuth';
 import { useNavigate } from 'react-router-dom';
 
 export default function Home() {
-  useWithAuth();
-
+  const user = useWithAuth();
   const navigate = useNavigate();
 
-  // TODO: Load boards from API
-  const boards = [
-    {
-      id: '1',
-      name: 'Board 1',
-      createdAt: new Date(),
-    }
-  ];
 
   return (
     <main className='text-gray-700 grid place-content-center justify-items-center p-16'>
@@ -35,28 +27,7 @@ export default function Home() {
           />
         </div>
 
-        { boards.length === 0 && (
-          <p className='text-center text-gray-500'>No boards found!</p>
-        ) }
-
-        { boards.map((board) => (
-          <Button
-            key={ board.id }
-            className='w-full border-t-transparent border-x-0'
-            onClick={ () => navigate(`/board/${board.id}`) }
-            text={ (
-              <div className='flex items-center justify-between gap-4 p-4'>
-                <p
-                  className='font-normal truncate text-ellipsis'
-                  title={ board.name }
-                >
-                  { board.name }
-                </p>
-                <p className='text-gray-500 text-sm'>{ board.createdAt.toLocaleDateString() }</p>
-              </div>
-            ) }
-          />
-        )) }
+        <BoardList user={ user || { _id: '', email: '', username: '' } } />
       </section>
     </main>
   );

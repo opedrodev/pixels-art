@@ -20,12 +20,16 @@ async function login({ email, password, rememberMe }: ILogin) {
   const emailExists = await UserModel.findOne({ email: email });
   if (!emailExists) throw new Error('Email does not exists');
 
-  const { password: hashedPassword, ...userInfo } = emailExists.toObject();
+  const { password: hashedPassword, ...user } = emailExists.toObject();
 
   const validPassword = compareSync(password, hashedPassword);
   if (!validPassword) throw new Error('Invalid email or password');
 
-  const token = jwt.sign(userInfo, JWT_SECRET, { expiresIn: rememberMe ? '7d' : '4h'});
+  const token = jwt.sign(
+    { email: user.email, username: user.username, _id: user._id },
+    JWT_SECRET,
+    { expiresIn: rememberMe ? '7d' : '4h'}
+  );
   return token;
 }
 

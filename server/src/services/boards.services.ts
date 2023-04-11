@@ -9,7 +9,7 @@ async function saveBoard(userId: string, board: IBoard) {
   if (!user) throw new Error('User not found');
 
   const filteredBoards = user.boards.filter((b) => b.id !== board.id);
-  user.boards = [...filteredBoards, board];
+  user.boards = [board, ...filteredBoards];
   
   await user.save();
 }

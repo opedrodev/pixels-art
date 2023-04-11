@@ -13,8 +13,8 @@ export default function BoardList(props: { user: IUser }) {
 
   const { boards, loading } = useFetchBoardList(_id);
 
-  function onBoardClick() {
-    const board = boards.find((board) => board.id === board.id);
+  function onBoardClick(id: string) {
+    const board = boards.find((board) => board.id === id);
     dispatch(setBoard(board));
     navigate(`/board/${_id}/${board?.id}`);
   }
@@ -33,7 +33,7 @@ export default function BoardList(props: { user: IUser }) {
         <Button
           key={ board.id }
           className='w-full border-t-transparent border-x-0'
-          onClick={ onBoardClick }
+          onClick={ () => onBoardClick(board.id) }
           text={ (
             <div className='flex items-center justify-between gap-4 p-4'>
               <p

@@ -1,15 +1,18 @@
+import { saveBoard } from 'api/boards';
 import { setBoard } from 'app/reducers/board';
 import Button from 'components/UI/Button';
 import Input from 'components/UI/Input';
 import Select from 'components/UI/Select';
 import calculateArea from 'helpers/calculateArea';
+import { IUserState } from 'interfaces';
 import { ChangeEvent, useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { v4 as uuid } from 'uuid';
 
 export default function NewBoard() {
+  const { _id } = useSelector((state: IUserState) => state.user.user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -48,7 +51,7 @@ export default function NewBoard() {
    *
    * @description Create a new board and navigate to it
    */
-  function handleCreateBoard() {
+  async function handleCreateBoard() {
     if (name.trim() === '') return toast.error('The board must have a name');
     if (width < 5 || height < 5) return toast.error('The board must be at least 5x5 pixels');
     if (width > maxWidth || height > maxHeight) return toast.error('The board is too big');
@@ -65,7 +68,8 @@ export default function NewBoard() {
     };
 
     dispatch(setBoard(board));
-    navigate(`/board/${id}`);
+    await saveBoard(_id || '', board);
+    navigate(`/board/${_id}/${id}`);
   }
 
   return (

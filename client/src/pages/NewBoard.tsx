@@ -1,21 +1,18 @@
-import { saveBoard } from 'api/boards';
 import { setBoard } from 'app/reducers/board';
 import Button from 'components/UI/Button';
 import Input from 'components/UI/Input';
 import Select from 'components/UI/Select';
 import calculateArea from 'helpers/calculateArea';
 import useWithAuth from 'hooks/useWithAuth';
-import { IUserState } from 'interfaces';
 import { ChangeEvent, useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { v4 as uuid } from 'uuid';
 
 export default function NewBoard() {
-  useWithAuth();
+  const user = useWithAuth();
 
-  const { _id } = useSelector((state: IUserState) => state.user.user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -71,8 +68,7 @@ export default function NewBoard() {
     };
 
     dispatch(setBoard(board));
-    await saveBoard(_id || '', board);
-    navigate(`/board/${_id}/${id}`);
+    navigate(`/board/${user?._id}/${id}`);
   }
 
   return (

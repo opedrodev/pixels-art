@@ -40,7 +40,7 @@ export default function Pixel({ color }: IPixel) {
         backgroundColor: color,
         border: options.border ? `${options.border}px solid rgb(229, 231, 235)` : ''
       } }
-      onClick={ onPaintPixel }
+      onMouseDown={ onPaintPixel }
       onMouseOver={ onHoldPaint }
     />
   );

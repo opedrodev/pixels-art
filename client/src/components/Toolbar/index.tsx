@@ -28,7 +28,11 @@ function Toolbar() {
 
   useEffect(() => {
     (async () => {
-      await saveBoard(userId || '', boardState);
+      try {
+        await saveBoard(userId || '', boardState);
+      } catch (error) {
+        throw new Error((error as Error).message);
+      }
     })();
   }, [boardState]);
 

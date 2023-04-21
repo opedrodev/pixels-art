@@ -64,7 +64,8 @@ export default function NewBoard() {
       width,
       height,
       options,
-      pixels: Array.from({ length: height * width }, () => 'rgb(255, 255, 255)')
+      pixels: Array.from({ length: height * width }, () => 'rgb(255, 255, 255)'),
+      createdAt: new Date().toISOString()
     };
 
     dispatch(setBoard(board));

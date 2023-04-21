@@ -5,6 +5,7 @@ export interface IBoard {
   width: number;
   options: IBoardOptions;
   pixels: string[];
+  createdAt: string;
 }
 
 export interface IBoardOptions {

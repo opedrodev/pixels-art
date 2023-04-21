@@ -1,4 +1,5 @@
 import { setBoard } from 'app/reducers/board';
+import { formatDate } from 'helpers/formatDate';
 import useFetchBoardList from 'hooks/useFetchBoardList';
 import { IUser } from 'interfaces';
 import { useDispatch } from 'react-redux';
@@ -36,13 +37,15 @@ export default function BoardList(props: { user: IUser }) {
           className='w-full border-t-transparent border-x-0'
           onClick={ () => onBoardClick(board.id) }
           text={ (
-            <div className='flex items-center justify-between gap-4 p-4'>
+            <div className='grid grid-cols-[1fr_auto] items-center gap-4 p-4'>
               <p
-                className='font-normal truncate text-ellipsis'
+                className='place-self-start font-normal truncate text-ellipsis'
                 title={ board.name }
               >
                 { board.name }
               </p>
+
+              <p className='text-gray-400 text-sm'>{ formatDate(new Date(board.createdAt)) }</p>
             </div>
           ) }
         />

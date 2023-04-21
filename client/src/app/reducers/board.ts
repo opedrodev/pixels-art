@@ -10,20 +10,22 @@ const initialState = {
   options: {
     spacing: 0,
     border: 0,
-  }
+  },
+  createdAt: '',
 } as IBoard;
 
 const boardSlice = createSlice({
   name: 'board',
   initialState,
   reducers: {
-    setBoard(state, { payload: { id, name, height, width, pixels, options } }) {
+    setBoard(state, { payload: { id, name, height, width, pixels, options, createdAt } }) {
       state.id = id;
       state.name = name;
       state.height = height;
       state.width = width;
       state.pixels = pixels;
       state.options = options;
+      state.createdAt = createdAt;
     },
 
     savePixels(state, action) {

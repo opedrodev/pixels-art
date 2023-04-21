@@ -4,6 +4,7 @@ import { IUser } from 'interfaces';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Button from './UI/Button';
+import Loading from './UI/Loading';
 
 export default function BoardList(props: { user: IUser }) {
   const { _id } = props.user;
@@ -19,7 +20,7 @@ export default function BoardList(props: { user: IUser }) {
     navigate(`/board/${_id}/${board?.id}`);
   }
 
-  if (loading) return <p className='text-center'>Loading...</p>;
+  if (loading) return <Loading />;
 
   // TODO: Add a creation date to the board
 

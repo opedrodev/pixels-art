@@ -1,0 +1,17 @@
+version: '3.9'
+services:
+  client:
+    build: ./client
+    container_name: pixels-art-client
+    ports:
+      - '5173:5173'
+    stdin_open: true
+    tty: true
+    depends_on:
+      - server
+
+  server:
+    build: ./server
+    container_name: pixels-art-server
+    ports:
+      - '3001:3001'

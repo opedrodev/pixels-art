@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "prestart": "npm install && npm run preview &",
+    "prestart": "npm install && npm run build && npm run preview &",
     "start": "cd .. && cd server && npm run start"
   },
   "dependencies": {
